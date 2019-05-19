@@ -26,9 +26,13 @@ public class ProductConstraint {
     @Column
     private String message;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column
+    @Enumerated(EnumType.STRING)
+    private ConstraintsType constraintsType;
+
+    @OneToOne(fetch = FetchType.LAZY)
     @Cascade({CascadeType.SAVE_UPDATE})
-    @JoinColumn(name = "constraintId")
+    @JoinColumn(name = "wantedProductId")
     private WantedProduct wantedProduct;
 
     @OneToOne

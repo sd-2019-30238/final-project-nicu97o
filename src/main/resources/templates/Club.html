@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Club</title>
+</head>
+<body>
+<div th:align="center">
+    <a href="/home">Home</a>
+    <a href="/users/accountDetails">Account</a>
+    <a href="/clubs/currentUser">Club</a>
+    <a href="/logout">Logout</a>
+</div>
+<hr>
+<br>
+<div th:align="center">
+    <th:block th:each="club : ${clubs}">
+        <a th:href="@{/clubs/{id} (id = ${club.id})}" th:text="${club.name}"></a>
+        <br>
+    </th:block>
+</div>
+<br>
+<form th:align="center" action="#" th:action="@{/clubs}" th:object="${newClub}" th:method="post">
+    <label th:for="name">Name :</label>
+    <input th:type="text" th:field="*{name}" th:id="name" th:placeholder="Name">
+    <button th:type="submit">Add club</button>
+    <br>
+</form>
+<span th:align="center" th:if="${errorMessage} != null">
+        <th:block th:each="error : ${errorMessage}">
+            <span style="color:red" th:text="${error}"></span>
+            <br>
+        </th:block>
+    </span>
+<br>
+<form th:align="center" action="#" th:action="@{/clubs/join}" th:method="put">
+    <input type="hidden" name="_method" value="put"/>
+    <label th:for="code">Club's code :</label>
+    <input type="text" th:name="code" th:id="code" placeholder="Invite code">
+    <button th:type="submit">Join club</button>
+    <br>
+</form>
+</body>
+</html>

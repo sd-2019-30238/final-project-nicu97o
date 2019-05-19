@@ -15,6 +15,5 @@ public class AddressDTO {
     private String street;
     private Integer number;
     private String postalCode;
-    private ShopDTO shop;
     private AddressCoordinatesDTO addressCoordinates;
 }

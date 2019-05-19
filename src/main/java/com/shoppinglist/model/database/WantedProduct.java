@@ -31,9 +31,12 @@ public class WantedProduct {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @OneToMany(mappedBy = "wantedProduct")
+    @Column
+    private boolean bought;
+
+    @OneToOne(mappedBy = "wantedProduct")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private List<ProductConstraint> constraints = new ArrayList<>();
+    private ProductConstraint productConstraint;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)

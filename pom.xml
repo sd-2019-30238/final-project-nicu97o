@@ -16,9 +16,15 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <googleMapsVersion>0.9.1</googleMapsVersion>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.google.maps</groupId>
+            <artifactId>google-maps-services</artifactId>
+            <version>${googleMapsVersion}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>

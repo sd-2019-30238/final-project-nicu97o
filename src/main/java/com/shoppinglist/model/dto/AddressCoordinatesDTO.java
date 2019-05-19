@@ -13,5 +13,4 @@ public class AddressCoordinatesDTO {
     private Long id;
     private double latitude;
     private double longitude;
-    private AddressDTO address;
 }

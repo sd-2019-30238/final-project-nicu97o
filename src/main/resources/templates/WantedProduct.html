@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wanted product</title>
+</head>
+<body>
+<div th:align="center">
+    <a href="/home">Home</a>
+    <a href="/users/accountDetails">Account</a>
+    <a href="/clubs/currentUser">Club</a>
+    <a href="/logout">Logout</a>
+</div>
+<hr>
+<br>
+<form th:align="center" action="#" th:action="@{/wantedProducts/{clubId} (clubId = ${clubId})}" th:method="post"
+      th:object="${wantedProduct}">
+    <label th:for="name">Name : </label>
+    <input th:type="text" th:field="*{name}" th:id="name" placeholder="Name">
+    <br>
+    <label th:for="description">Description : </label>
+    <input th:type="text" th:field="*{description}" th:id="description" placeholder="description">
+    <br>
+
+    <label th:for="categories">Categories : </label>
+    <select th:field="*{category}" id="categories">
+        <option th:each="category : ${categories}"
+                th:value="${category}"
+                th:text="${category}">
+        </option>
+    </select>
+    <br>
+    <label th:for="constraintName">Constraint name : </label>
+    <input th:type="text" th:field="*{productConstraintDTO.name}" th:id="constraintName" placeholder="constraintName">
+    <br>
+    <label th:for="constraintMessage">Constraint message : </label>
+    <input th:type="text" th:field="*{productConstraintDTO.message}" th:id="constraintMessage"
+           placeholder="constraintMessage">
+    <br>
+    <label th:for="constraintTypes">Constraint types : </label>
+    <select th:field="*{productConstraintDTO.constraintsType}" id="constraintTypes">
+        <option th:each="type : ${constraintTypes}"
+                th:value="${type}"
+                th:text="${type}">
+        </option>
+    </select>
+    <br>
+    <label th:for="shopName">Shop name : </label>
+    <input th:type="text" th:field="*{productConstraintDTO.shop.name}" th:id="shopName" placeholder="shopName">
+    <br>
+    <label th:for="shopDescription">Shop description : </label>
+    <input th:type="text" th:field="*{productConstraintDTO.shop.description}" th:id="shopDescription"
+           placeholder="shopDescription">
+    <br>
+    <label th:for="city">City : </label>
+    <input th:type="text" th:field="*{productConstraintDTO.shop.address.city}" th:id="city" placeholder="city">
+    <br>
+    <label th:for="street">Street : </label>
+    <input th:type="text" th:field="*{productConstraintDTO.shop.address.street}" th:id="street" placeholder="street">
+    <br>
+    <label th:for="number">Number : </label>
+    <input th:type="number" th:field="*{productConstraintDTO.shop.address.number}" th:id="number" placeholder="number">
+    <br>
+    <label th:for="postalCode">Postal code : </label>
+    <input th:type="text" th:field="*{productConstraintDTO.shop.address.postalCode}" th:id="postalCode"
+           placeholder="postalCode">
+    <br>
+    <input th:type="submit" th:value="Submit">
+    <br>
+    <span th:align="center" th:if="${errorMessage} != null">
+        <th:block th:each="error : ${errorMessage}">
+            <span style="color:red" th:text="${error}"></span>
+            <br>
+        </th:block>
+    </span>
+</form>
+<form></form>
+</body>
+</html>

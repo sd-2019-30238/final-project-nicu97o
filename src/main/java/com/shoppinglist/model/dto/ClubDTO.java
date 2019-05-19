@@ -5,10 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,7 +15,13 @@ import java.util.Set;
 @Setter
 public class ClubDTO {
     private Long id;
+
+    @NotBlank
     private String name;
+
+    private String inviteCode;
+
     private List<WantedProductDTO> wantedProducts = new ArrayList<>();
-    private Set<UserDTO> users = new HashSet<>();
+
+    private List<UserDTO> users = new ArrayList<>();
 }

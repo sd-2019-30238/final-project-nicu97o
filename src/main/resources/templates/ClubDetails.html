@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Club Details</title>
+</head>
+<body>
+<div th:align="center">
+    <a href="/home">Home</a>
+    <a href="/users/accountDetails">Account</a>
+    <a href="/clubs/currentUser">Club</a>
+    <a href="/logout">Logout</a>
+</div>
+<hr>
+<br>
+<div th:align="center">
+    <label for="id">Id : </label>
+    <input th:readonly="true" type="number" th:field="${club.id}" id="id">
+    <br>
+    <label for="name">Name : </label>
+    <input th:readonly="true" th:type="text" th:field="${club.name}" id="name">
+    <br>
+    <label for="code">Invite code : </label>
+    <input th:readonly="true" th:type="text" th:field="${club.inviteCode}" id="code">
+</div>
+<br>
+<hr>
+<br>
+<table th:align="center" th:border="1">
+    <h3 th:align="center">Wanted products</h3>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Bought</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="wantedProduct : ${wantedProducts}">
+        <td th:text="${wantedProduct.id}"></td>
+        <td th:text="${wantedProduct.name}"></td>
+        <td th:text="${wantedProduct.description}"></td>
+        <td th:text="${wantedProduct.category}"></td>
+        <td th:text="${wantedProduct.bought}"></td>
+    </tr>
+    </tbody>
+</table>
+<form th:align="center" action="#" th:action="@{/wantedProducts/{id} (id = ${club.id})}" th:method="get">
+    <button th:type="submit">Add product</button>
+</form>
+<br>
+<hr>
+<br>
+<table th:align="center" th:border="1">
+    <h3 th:align="center">Members</h3>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Mail</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member : ${members}">
+        <td th:text="${member.username}"></td>
+        <td th:text="${member.mail}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

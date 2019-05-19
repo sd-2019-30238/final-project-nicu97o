@@ -67,4 +67,9 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     public void changeMail(String username, String newMail) {
         userService.changeMail(username, newMail);
     }
+
+    @Override
+    public List<UserDTO> getUsersOfAClubByClubsId(long id) {
+        return userService.getUsersOfAClubByClubsId(id).stream().map(mapper::convertToDTO).collect(Collectors.toList());
+    }
 }

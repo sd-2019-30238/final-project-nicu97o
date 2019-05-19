@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,11 +27,15 @@ public class Club {
     @Column
     private String name;
 
+    @Column(unique = true)
+    @Size(max = 100)
+    private String inviteCode;
+
     @OneToMany(mappedBy = "club")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<WantedProduct> wantedProducts = new ArrayList<>();
 
     @ManyToMany(mappedBy = "clubs", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private Set<User> users = new HashSet<>();
+    private List<User> users = new ArrayList<>();
 }

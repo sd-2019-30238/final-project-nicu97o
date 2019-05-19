@@ -23,4 +23,6 @@ public interface UserService {
     void changePassword(String username, String oldPassword, String newPassword);
 
     void changeMail(String username, String newMail);
+
+    List<User> getUsersOfAClubByClubsId(long id);
 }

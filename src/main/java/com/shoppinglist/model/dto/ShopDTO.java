@@ -15,5 +15,4 @@ public class ShopDTO {
     private String name;
     private String description;
     private AddressDTO address;
-    private ProductConstraintDTO productConstraint;
 }

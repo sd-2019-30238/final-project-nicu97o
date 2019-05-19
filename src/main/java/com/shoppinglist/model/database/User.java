@@ -1,21 +1,17 @@
 package com.shoppinglist.model.database;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @Table
 @Entity
 public class User {
@@ -41,6 +37,7 @@ public class User {
 
     @OneToMany(mappedBy = "userWhichPosted", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @EqualsAndHashCode.Exclude
     private List<WantedProduct> postedProducts = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -48,9 +45,11 @@ public class User {
     @JoinTable(name = "UsersClubs",
             joinColumns = {@JoinColumn(name = "userId")},
             inverseJoinColumns = {@JoinColumn(name = "clubId")})
-    private Set<Club> clubs = new HashSet<>();
+    @EqualsAndHashCode.Exclude
+    private List<Club> clubs = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private List<Token> tokens = new ArrayList<>();
 }

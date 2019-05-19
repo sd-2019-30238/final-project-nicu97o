@@ -1,5 +1,6 @@
 package com.shoppinglist.model.dto;
 
+import com.shoppinglist.model.database.ConstraintsType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ public class ProductConstraintDTO {
     private Long id;
     private String name;
     private String message;
-    private WantedProductDTO wantedProduct;
+    private ConstraintsType constraintsType;
+    private WantedProductDTO wantedProductDTO;
     private ShopDTO shop;
 }
