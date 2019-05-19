@@ -1,4 +1,4 @@
-package com.shoppinglist.model;
+package com.shoppinglist.model.database;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,10 +1,12 @@
-package com.shoppinglist.model;
+package com.shoppinglist.model.database;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 
@@ -14,18 +16,23 @@ import javax.persistence.*;
 @Setter
 @Table
 @Entity
-public class AddressCoordinates {
+public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private double latitude;
+    private String name;
 
     @Column
-    private double longitude;
+    private String description;
 
-    @OneToOne(mappedBy = "addressCoordinates")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @OneToOne
+    @Cascade(CascadeType.ALL)
+    @JoinColumn(name = "addressId")
     private Address address;
+
+    @OneToOne(mappedBy = "shop", fetch = FetchType.LAZY)
+    @Cascade(CascadeType.ALL)
+    private ProductConstraint productConstraint;
 }

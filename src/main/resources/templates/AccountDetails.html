@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Details</title>
+</head>
+<body>
+<div th:align="center">
+    <a href="/home">Home</a>
+    <a href="/users/accountDetails">Account</a>
+    <a>Club</a>
+    <a href="/logout">Logout</a>
+</div>
+<hr>
+<br>
+<div th:align="center">
+    <label for="username">Username : </label>
+    <input th:readonly="true" th:type="text" th:field="${user.username}" id="username">
+    <br>
+    <label for="mail">Mail : </label>
+    <input th:readonly="true" th:type="text" th:field="${user.mail}" id="mail">
+    <hr>
+    Update mail:
+    <br>
+    <form action="#" th:action="@{/users/mail}" th:method="put">
+        <input type="hidden" name="_method" value="put"/>
+        <input th:type="text" th:name="mail" placeholder="New mail">
+        <button th:type="submit">Update mail</button>
+    </form>
+    <hr>
+    Update password:
+    <br>
+    <form action="#" th:action="@{/users/password}" th:method="put">
+        <input type="hidden" name="_method" value="put"/>
+        <input th:type="password" th:name="oldPassword" placeholder="Old password">
+        <input th:type="password" th:name="newPassword" placeholder="New password">
+        <button th:type="submit">Update password</button>
+    </form>
+    <hr>
+
+    <br>
+    <form action="#" th:action="@{/users/delete}" th:method="delete">
+        <input type="hidden" name="_method" value="delete"/>
+        <button th:type="submit">Delete</button>
+    </form>
+</div>
+</body>
+</html>

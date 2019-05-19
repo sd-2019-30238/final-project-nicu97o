@@ -1,4 +1,4 @@
-package com.shoppinglist.model;
+package com.shoppinglist.model.database;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +36,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
+    @Column
+    private boolean confirmed;
+
     @OneToMany(mappedBy = "userWhichPosted", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<WantedProduct> postedProducts = new ArrayList<>();
@@ -46,4 +49,8 @@ public class User {
             joinColumns = {@JoinColumn(name = "userId")},
             inverseJoinColumns = {@JoinColumn(name = "clubId")})
     private Set<Club> clubs = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<Token> tokens = new ArrayList<>();
 }

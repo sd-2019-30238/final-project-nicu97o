@@ -1,4 +1,4 @@
-package com.shoppinglist.model;
+package com.shoppinglist.model.database;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,29 +14,18 @@ import javax.persistence.*;
 @Setter
 @Table
 @Entity
-public class Address {
+public class AddressCoordinates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private String city;
+    private double latitude;
 
     @Column
-    private String street;
+    private double longitude;
 
-    @Column
-    private Integer number;
-
-    @Column
-    private String postalCode;
-
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "addressCoordinates")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private Shop shop;
-
-    @OneToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name = "addressCoordinatesId")
-    private AddressCoordinates addressCoordinates;
+    private Address address;
 }

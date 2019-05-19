@@ -1,5 +1,4 @@
-package com.shoppinglist.model;
-
+package com.shoppinglist.model.database;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +15,7 @@ import javax.persistence.*;
 @Setter
 @Table
 @Entity
-public class Shop {
+public class ProductConstraint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,14 +24,15 @@ public class Shop {
     private String name;
 
     @Column
-    private String description;
+    private String message;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Cascade({CascadeType.SAVE_UPDATE})
+    @JoinColumn(name = "constraintId")
+    private WantedProduct wantedProduct;
 
     @OneToOne
     @Cascade(CascadeType.ALL)
-    @JoinColumn(name = "addressId")
-    private Address address;
-
-    @OneToOne(mappedBy = "shop", fetch = FetchType.LAZY)
-    @Cascade(CascadeType.ALL)
-    private ProductConstraint productConstraint;
+    @JoinColumn(name = "shopId")
+    private Shop shop;
 }
