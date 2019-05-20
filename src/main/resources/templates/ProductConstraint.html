@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:align="center">
+    <a href="/home">Home</a>
+    <a href="/users/accountDetails">Account</a>
+    <a href="/clubs/currentUser">Club</a>
+    <a href="/logout">Logout</a>
+</div>
+<hr>
+<br>
+<div th:align="center">
+    Name : <p th:text="${productConstraint.name}"></p>
+    <br>
+    Message :
+    <br>
+    <p th:text="${productConstraint.message}"></p>
+    <br>
+    <div th:if="${productConstraint.constraintsType.name() == 'BASED_ON_LOCATION'}">
+        <p th:text="${productConstraint.shop.name}"></p>
+        <p th:text="${productConstraint.shop.description}"></p>
+        Oras : <p th:text="${productConstraint.shop.address.city}"></p>
+        <br>
+        Strada : <p th:text="${productConstraint.shop.address.street}"></p>
+        <br>
+        Numar : <p th:text="${productConstraint.shop.address.number}"></p>
+        <br>
+        Cod postal : <p th:text="${productConstraint.shop.address.postalCode}"></p>
+        <br>
+        <a th:href="@{/productConstraints/maps/{id}(id = ${productConstraint.id})}">See on maps</a>
+    </div>
+</div>
+</body>
+</html>

@@ -9,4 +9,8 @@ public interface WantedProductServiceFacade {
     List<WantedProductDTO> getWantedProductsByClubId(long id);
 
     void addWantedProduct(long clubId, WantedProductDTO wantedProduct, ProductConstraintDTO productConstraintDTO);
+
+    WantedProductDTO getWantedProductById(long id);
+
+    void markAsBought(long id);
 }

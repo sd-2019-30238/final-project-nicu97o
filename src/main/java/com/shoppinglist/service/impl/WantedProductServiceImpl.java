@@ -1,6 +1,7 @@
 package com.shoppinglist.service.impl;
 
 import com.shoppinglist.dao.WantedProductDAO;
+import com.shoppinglist.exception.NoWantedProductFoundException;
 import com.shoppinglist.model.database.Club;
 import com.shoppinglist.model.database.ProductConstraint;
 import com.shoppinglist.model.database.WantedProduct;
@@ -25,8 +26,20 @@ public class WantedProductServiceImpl implements WantedProductService {
     }
 
     @Override
+    public WantedProduct getWantedProductById(long id) {
+        return wantedProductDAO.findById(id).orElseThrow(() -> new NoWantedProductFoundException("No wanted product with id " + id + " found!"));
+    }
+
+    @Override
     public List<WantedProduct> getWantedProductsByClubId(long id) {
         return wantedProductDAO.findWantedProductsByClubId(id);
+    }
+
+    @Override
+    public void markAsBought(long id) {
+        WantedProduct wantedProduct = getWantedProductById(id);
+        wantedProduct.setBought(true);
+        wantedProductDAO.save(wantedProduct);
     }
 
     @Override
@@ -34,7 +47,9 @@ public class WantedProductServiceImpl implements WantedProductService {
         Club club = clubService.getClubById(clubId);
         wantedProduct.setId(null);
         wantedProduct.setClub(club);
-        productConstraint.setWantedProduct(wantedProduct);
+        if (productConstraint != null) {
+            productConstraint.setWantedProduct(wantedProduct);
+        }
         wantedProduct.setProductConstraint(productConstraint);
         wantedProductDAO.save(wantedProduct);
     }

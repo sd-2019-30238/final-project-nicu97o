@@ -25,6 +25,8 @@ public class WantedProductDTO {
 
     private boolean bought;
 
+    private boolean constrained;
+
     private Category category;
 
     private ProductConstraintDTO productConstraintDTO;

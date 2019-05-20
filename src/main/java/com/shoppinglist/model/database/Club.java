@@ -32,10 +32,10 @@ public class Club {
     private String inviteCode;
 
     @OneToMany(mappedBy = "club")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<WantedProduct> wantedProducts = new ArrayList<>();
 
     @ManyToMany(mappedBy = "clubs", fetch = FetchType.LAZY)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<User> users = new ArrayList<>();
 }

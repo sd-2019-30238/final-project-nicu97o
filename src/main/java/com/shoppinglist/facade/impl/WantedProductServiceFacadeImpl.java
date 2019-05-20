@@ -35,4 +35,14 @@ public class WantedProductServiceFacadeImpl implements WantedProductServiceFacad
     public void addWantedProduct(long clubId, WantedProductDTO wantedProduct, ProductConstraintDTO productConstraintDTO) {
         wantedProductService.addWantedProduct(clubId, mapper.convertToEntity(wantedProduct), productConstraintMapper.convertToEntity(productConstraintDTO));
     }
+
+    @Override
+    public WantedProductDTO getWantedProductById(long id) {
+        return mapper.convertToDTO(wantedProductService.getWantedProductById(id));
+    }
+
+    @Override
+    public void markAsBought(long id) {
+        wantedProductService.markAsBought(id);
+    }
 }

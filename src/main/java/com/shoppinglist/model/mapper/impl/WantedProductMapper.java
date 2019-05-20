@@ -21,25 +21,33 @@ public class WantedProductMapper implements Mapper<WantedProduct, WantedProductD
 
     @Override
     public WantedProduct convertToEntity(WantedProductDTO wantedProductDTO) {
+        if (wantedProductDTO == null) {
+            return null;
+        }
         WantedProduct wantedProduct = new WantedProduct();
         wantedProduct.setId(wantedProductDTO.getId());
         wantedProduct.setName(wantedProductDTO.getName());
         wantedProduct.setDescription(wantedProductDTO.getDescription());
         wantedProduct.setCategory(wantedProductDTO.getCategory());
         wantedProduct.setBought(wantedProductDTO.isBought());
-        wantedProduct.setProductConstraint(Optional.ofNullable(wantedProductDTO.getProductConstraintDTO()).map(mapper::convertToEntity).orElse(new ProductConstraint()));
+        wantedProduct.setConstrained(wantedProductDTO.isConstrained());
+        wantedProduct.setProductConstraint(Optional.ofNullable(wantedProductDTO).map(WantedProductDTO::getProductConstraintDTO).map(mapper::convertToEntity).orElse(new ProductConstraint()));
         return wantedProduct;
     }
 
     @Override
     public WantedProductDTO convertToDTO(WantedProduct wantedProduct) {
+        if (wantedProduct == null) {
+            return null;
+        }
         WantedProductDTO wantedProductDTO = new WantedProductDTO();
         wantedProductDTO.setId(wantedProduct.getId());
         wantedProductDTO.setName(wantedProduct.getName());
         wantedProductDTO.setDescription(wantedProduct.getDescription());
         wantedProductDTO.setCategory(wantedProduct.getCategory());
         wantedProductDTO.setBought(wantedProduct.isBought());
-        wantedProductDTO.setProductConstraintDTO(Optional.ofNullable(wantedProduct.getProductConstraint()).map(mapper::convertToDTO).orElse(new ProductConstraintDTO()));
+        wantedProductDTO.setConstrained(wantedProduct.isConstrained());
+        wantedProductDTO.setProductConstraintDTO(Optional.ofNullable(wantedProduct).map(WantedProduct::getProductConstraint).map(mapper::convertToDTO).orElse(new ProductConstraintDTO()));
         return wantedProductDTO;
     }
 }

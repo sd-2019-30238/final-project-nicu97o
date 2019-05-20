@@ -24,23 +24,29 @@ public class ProductConstraintMapper implements Mapper<ProductConstraint, Produc
 
     @Override
     public ProductConstraint convertToEntity(ProductConstraintDTO productConstraintDTO) {
+        if (productConstraintDTO == null) {
+            return null;
+        }
         ProductConstraint productConstraint = new ProductConstraint();
         productConstraint.setId(productConstraintDTO.getId());
         productConstraint.setConstraintsType(productConstraintDTO.getConstraintsType());
         productConstraint.setName(productConstraintDTO.getName());
         productConstraint.setMessage(productConstraintDTO.getMessage());
-        productConstraint.setShop(Optional.ofNullable(productConstraintDTO.getShop()).map(mapper::convertToEntity).orElse(null));
+        productConstraint.setShop(Optional.ofNullable(productConstraintDTO).map(ProductConstraintDTO::getShop).map(mapper::convertToEntity).orElse(null));
         return productConstraint;
     }
 
     @Override
     public ProductConstraintDTO convertToDTO(ProductConstraint productConstraint) {
+        if (productConstraint == null) {
+            return null;
+        }
         ProductConstraintDTO productConstraintDTO = new ProductConstraintDTO();
         productConstraintDTO.setId(productConstraint.getId());
         productConstraintDTO.setName(productConstraint.getName());
         productConstraintDTO.setMessage(productConstraint.getMessage());
         productConstraintDTO.setConstraintsType(productConstraint.getConstraintsType());
-        productConstraintDTO.setShop(Optional.ofNullable(productConstraint.getShop()).map(mapper::convertToDTO).orElse(new ShopDTO()));
+        productConstraintDTO.setShop(Optional.ofNullable(productConstraint).map(ProductConstraint::getShop).map(mapper::convertToDTO).orElse(new ShopDTO()));
         return productConstraintDTO;
     }
 }

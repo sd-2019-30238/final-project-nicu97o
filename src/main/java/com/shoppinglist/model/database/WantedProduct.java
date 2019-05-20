@@ -34,6 +34,9 @@ public class WantedProduct {
     @Column
     private boolean bought;
 
+    @Column
+    private boolean constrained;
+
     @OneToOne(mappedBy = "wantedProduct")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private ProductConstraint productConstraint;

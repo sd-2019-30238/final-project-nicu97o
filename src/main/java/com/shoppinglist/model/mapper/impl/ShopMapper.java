@@ -21,21 +21,27 @@ public class ShopMapper implements Mapper<Shop, ShopDTO> {
 
     @Override
     public Shop convertToEntity(ShopDTO shopDTO) {
+        if (shopDTO == null) {
+            return null;
+        }
         Shop shop = new Shop();
         shop.setId(shopDTO.getId());
         shop.setName(shopDTO.getName());
         shop.setDescription(shopDTO.getDescription());
-        shop.setAddress(Optional.ofNullable(shopDTO.getAddress()).map(mapper::convertToEntity).orElse(new Address()));
+        shop.setAddress(Optional.ofNullable(shopDTO).map(ShopDTO::getAddress).map(mapper::convertToEntity).orElse(new Address()));
         return shop;
     }
 
     @Override
     public ShopDTO convertToDTO(Shop shop) {
+        if (shop == null) {
+            return null;
+        }
         ShopDTO shopDTO = new ShopDTO();
         shopDTO.setId(shop.getId());
         shopDTO.setName(shop.getName());
         shopDTO.setDescription(shop.getDescription());
-        shopDTO.setAddress(Optional.ofNullable(shop.getAddress()).map(mapper::convertToDTO).orElse(new AddressDTO()));
+        shopDTO.setAddress(Optional.ofNullable(shop).map(Shop::getAddress).map(mapper::convertToDTO).orElse(new AddressDTO()));
         return shopDTO;
     }
 }

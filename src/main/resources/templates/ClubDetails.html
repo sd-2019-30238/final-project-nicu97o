@@ -35,6 +35,7 @@
         <th>Description</th>
         <th>Category</th>
         <th>Bought</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -44,6 +45,19 @@
         <td th:text="${wantedProduct.description}"></td>
         <td th:text="${wantedProduct.category}"></td>
         <td th:text="${wantedProduct.bought}"></td>
+        <td>
+            <form action="#" th:action="@{/wantedProducts/{id} (id = ${wantedProduct.id})}" th:method="put">
+                <input type="hidden" name="_method" value="put"/>
+                <input th:type="hidden" th:name="clubId" th:value="${club.id}">
+                <button th:type="submit">Mark as bought</button>
+            </form>
+            <div th:if="${wantedProduct.constrained} == true">
+                <form action="#" th:action="@{/productConstraints/{id} (id=${wantedProduct.productConstraintDTO.id})}"
+                      th:method="get">
+                    <button th:type="Submit">See constraints</button>
+                </form>
+            </div>
+        </td>
     </tr>
     </tbody>
 </table>

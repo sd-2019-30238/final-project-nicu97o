@@ -15,6 +15,8 @@
 <br>
 <form th:align="center" action="#" th:action="@{/wantedProducts/{clubId} (clubId = ${clubId})}" th:method="post"
       th:object="${wantedProduct}">
+    <h3>Wanted product</h3>
+    <br>
     <label th:for="name">Name : </label>
     <input th:type="text" th:field="*{name}" th:id="name" placeholder="Name">
     <br>
@@ -29,6 +31,9 @@
                 th:text="${category}">
         </option>
     </select>
+    <br>
+    <hr>
+    <h3>Constraints</h3>
     <br>
     <label th:for="constraintName">Constraint name : </label>
     <input th:type="text" th:field="*{productConstraintDTO.name}" th:id="constraintName" placeholder="constraintName">
@@ -52,18 +57,8 @@
     <input th:type="text" th:field="*{productConstraintDTO.shop.description}" th:id="shopDescription"
            placeholder="shopDescription">
     <br>
-    <label th:for="city">City : </label>
-    <input th:type="text" th:field="*{productConstraintDTO.shop.address.city}" th:id="city" placeholder="city">
-    <br>
-    <label th:for="street">Street : </label>
-    <input th:type="text" th:field="*{productConstraintDTO.shop.address.street}" th:id="street" placeholder="street">
-    <br>
-    <label th:for="number">Number : </label>
-    <input th:type="number" th:field="*{productConstraintDTO.shop.address.number}" th:id="number" placeholder="number">
-    <br>
-    <label th:for="postalCode">Postal code : </label>
-    <input th:type="text" th:field="*{productConstraintDTO.shop.address.postalCode}" th:id="postalCode"
-           placeholder="postalCode">
+    <label th:for="address">Address : </label>
+    <input type="text" step="any" name="address" placeholder="Address"/>
     <br>
     <input th:type="submit" th:value="Submit">
     <br>

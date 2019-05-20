@@ -21,23 +21,31 @@ public class AddressMapper implements Mapper<Address, AddressDTO> {
 
     @Override
     public Address convertToEntity(AddressDTO addressDTO) {
+        if (addressDTO == null) {
+            return null;
+        }
         Address address = new Address();
         address.setId(addressDTO.getId());
         address.setCity(addressDTO.getCity());
         address.setNumber(addressDTO.getNumber());
         address.setPostalCode(addressDTO.getPostalCode());
-        address.setAddressCoordinates(Optional.ofNullable(addressDTO.getAddressCoordinates()).map(mapper::convertToEntity).orElse(new AddressCoordinates()));
+        address.setStreet(addressDTO.getStreet());
+        address.setAddressCoordinates(Optional.ofNullable(addressDTO).map(AddressDTO::getAddressCoordinates).map(mapper::convertToEntity).orElse(new AddressCoordinates()));
         return address;
     }
 
     @Override
     public AddressDTO convertToDTO(Address address) {
+        if (address == null) {
+            return null;
+        }
         AddressDTO addressDTO = new AddressDTO();
         addressDTO.setId(address.getId());
         addressDTO.setNumber(address.getNumber());
         addressDTO.setCity(address.getCity());
         addressDTO.setPostalCode(address.getPostalCode());
-        addressDTO.setAddressCoordinates(Optional.ofNullable(address.getAddressCoordinates()).map(mapper::convertToDTO).orElse(new AddressCoordinatesDTO()));
+        addressDTO.setStreet(address.getStreet());
+        addressDTO.setAddressCoordinates(Optional.ofNullable(address).map(Address::getAddressCoordinates).map(mapper::convertToDTO).orElse(new AddressCoordinatesDTO()));
         return addressDTO;
     }
 }
