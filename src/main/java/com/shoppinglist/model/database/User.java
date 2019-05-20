@@ -35,6 +35,16 @@ public class User {
     @Column
     private boolean confirmed;
 
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    private List<Invitation> receivedInvitations;
+
+    @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    private List<Invitation> sentInvitations;
+
     @OneToMany(mappedBy = "userWhichPosted", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @EqualsAndHashCode.Exclude

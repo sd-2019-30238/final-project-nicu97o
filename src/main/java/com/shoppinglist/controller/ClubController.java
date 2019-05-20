@@ -48,10 +48,37 @@ public class ClubController {
         return modelAndView;
     }
 
+    @GetMapping("/boughtProducts/{id}")
+    public ModelAndView getClubDetailsWithBoughtProducts(@PathVariable("id") long id) {
+        ModelAndView modelAndView = new ModelAndView("ClubDetails");
+        modelAndView.addObject("members", userServiceFacade.getUsersOfAClubByClubsId(id));
+        modelAndView.addObject("club", clubServiceFacade.getClubById(id));
+        modelAndView.addObject("wantedProducts", wantedProductServiceFacade.getWantedProductsByClubIdAndBoughtTrue(id));
+        return modelAndView;
+    }
+
+
+    @GetMapping("/unboughtProducts/{id}")
+    public ModelAndView getClubDetailsWithUnboughtProducts(@PathVariable("id") long id) {
+        ModelAndView modelAndView = new ModelAndView("ClubDetails");
+        modelAndView.addObject("members", userServiceFacade.getUsersOfAClubByClubsId(id));
+        modelAndView.addObject("club", clubServiceFacade.getClubById(id));
+        modelAndView.addObject("wantedProducts", wantedProductServiceFacade.getWantedProductsByClubIdAndBoughtFalse(id));
+        return modelAndView;
+    }
+
+
     @PutMapping("/join")
     public ModelAndView joinClub(@RequestParam("code") String code, Authentication authentication) {
         clubServiceFacade.joinClub(code, authentication.getName());
         return new ModelAndView("redirect:/clubs/currentUser");
+    }
+
+    @PutMapping("/leave/{clubId}")
+    public ModelAndView leaveClub(@PathVariable("clubId") long clubId, Authentication authentication) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/clubs/currentUser");
+        clubServiceFacade.leaveClub(clubId, authentication.getName());
+        return modelAndView;
     }
 
     @PostMapping

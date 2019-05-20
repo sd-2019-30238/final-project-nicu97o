@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Errors</title>
 </head>
 <body>
 <div th:align="center">
@@ -13,12 +13,13 @@
 </div>
 <hr>
 <br>
-<h1>Your invitations:</h1>
-<br>
-<th:block th:each="invitation : ${invitations}">
-    <a th:href="@{/invitations/use/{id}(id = ${invitation.id})}"
-       th:text="${invitation.sender.username} + ' invited you in a group!'"></a>
-    <br>
-</th:block>
+<h1>Error messages</h1>
+<table>
+    <th:block th:each="message : ${errorMessage}">
+        <tr>
+            <td th:text="${message}">...</td>
+        </tr>
+    </th:block>
+</table>
 </body>
 </html>

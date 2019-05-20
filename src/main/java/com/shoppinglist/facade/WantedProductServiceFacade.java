@@ -13,4 +13,8 @@ public interface WantedProductServiceFacade {
     WantedProductDTO getWantedProductById(long id);
 
     void markAsBought(long id);
+
+    List<WantedProductDTO> getWantedProductsByClubIdAndBoughtTrue(long id);
+
+    List<WantedProductDTO> getWantedProductsByClubIdAndBoughtFalse(long id);
 }

@@ -10,6 +10,8 @@ public interface UserServiceFacade {
 
     UserDTO getUserByUsername(String username);
 
+    UserDTO getUserByMail(String mail);
+
     List<UserDTO> getAllUsers();
 
     void addUser(UserDTO userDTO);
@@ -25,4 +27,6 @@ public interface UserServiceFacade {
     void changeMail(String username, String newMail);
 
     List<UserDTO> getUsersOfAClubByClubsId(long id);
+
+    void changePasswordBasedOnToken(String username, String password, String token);
 }

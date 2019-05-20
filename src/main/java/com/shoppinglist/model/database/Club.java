@@ -1,9 +1,6 @@
 package com.shoppinglist.model.database;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -19,6 +16,7 @@ import java.util.Set;
 @Setter
 @Table
 @Entity
+@EqualsAndHashCode
 public class Club {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,9 +31,11 @@ public class Club {
 
     @OneToMany(mappedBy = "club")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private List<WantedProduct> wantedProducts = new ArrayList<>();
 
     @ManyToMany(mappedBy = "clubs", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @EqualsAndHashCode.Exclude
     private List<User> users = new ArrayList<>();
 }

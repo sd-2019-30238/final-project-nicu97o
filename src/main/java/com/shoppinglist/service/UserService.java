@@ -10,6 +10,8 @@ public interface UserService {
 
     User getUserByUsername(String username);
 
+    User getUserByMail(String mail);
+
     List<User> getAllUsers();
 
     void addUser(User user);
@@ -25,4 +27,6 @@ public interface UserService {
     void changeMail(String username, String newMail);
 
     List<User> getUsersOfAClubByClubsId(long id);
+
+    void changePasswordBasedOnToken(String username, String password, String token);
 }

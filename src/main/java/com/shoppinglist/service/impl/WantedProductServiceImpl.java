@@ -36,6 +36,16 @@ public class WantedProductServiceImpl implements WantedProductService {
     }
 
     @Override
+    public List<WantedProduct> getWantedProductsByClubIdAndBoughtTrue(long id) {
+        return wantedProductDAO.findWantedProductsByClubIdAndBoughtTrue(id);
+    }
+
+    @Override
+    public List<WantedProduct> getWantedProductsByClubIdAndBoughtFalse(long id) {
+        return wantedProductDAO.findWantedProductsByClubIdAndBoughtFalse(id);
+    }
+
+    @Override
     public void markAsBought(long id) {
         WantedProduct wantedProduct = getWantedProductById(id);
         wantedProduct.setBought(true);

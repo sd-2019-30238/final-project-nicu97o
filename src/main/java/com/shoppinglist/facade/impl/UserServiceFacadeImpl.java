@@ -34,6 +34,11 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     }
 
     @Override
+    public UserDTO getUserByMail(String mail) {
+        return mapper.convertToDTO(userService.getUserByMail(mail));
+    }
+
+    @Override
     public List<UserDTO> getAllUsers() {
         return userService.getAllUsers().stream().map(mapper::convertToDTO).collect(Collectors.toList());
     }
@@ -71,5 +76,10 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     @Override
     public List<UserDTO> getUsersOfAClubByClubsId(long id) {
         return userService.getUsersOfAClubByClubsId(id).stream().map(mapper::convertToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public void changePasswordBasedOnToken(String username, String password, String token) {
+        userService.changePasswordBasedOnToken(username, password, token);
     }
 }

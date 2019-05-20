@@ -14,14 +14,17 @@
 <hr>
 <br>
 <div th:align="center">
-    <label for="id">Id : </label>
-    <input th:readonly="true" type="number" th:field="${club.id}" id="id">
+    <!--    <label for="id">Id : </label>-->
+    <!--    <input th:readonly="true" type="number" th:field="${club.id}" id="id">-->
+    Club id : <p th:text="${club.id}"></p>
     <br>
-    <label for="name">Name : </label>
-    <input th:readonly="true" th:type="text" th:field="${club.name}" id="name">
+    <!--    <label for="name">Name : </label>-->
+    <!--    <input th:readonly="true" th:type="text" th:field="${club.name}" id="name">-->
+    Club's name : <p th:text="${club.name}"></p>
     <br>
-    <label for="code">Invite code : </label>
-    <input th:readonly="true" th:type="text" th:field="${club.inviteCode}" id="code">
+    <!--    <label for="code">Invite code : </label>-->
+    <!--    <input th:readonly="true" th:type="text" th:field="${club.inviteCode}" id="code">-->
+    Invite code : <p th:text="${club.inviteCode}"></p>
 </div>
 <br>
 <hr>
@@ -64,6 +67,15 @@
 <form th:align="center" action="#" th:action="@{/wantedProducts/{id} (id = ${club.id})}" th:method="get">
     <button th:type="submit">Add product</button>
 </form>
+<form th:align="center" action="#" th:action="@{/clubs/unboughtProducts/{id} (id = ${club.id})}" th:method="get">
+    <button th:type="submit">See unbought products</button>
+</form>
+<form th:align="center" action="#" th:action="@{/clubs/boughtProducts/{id} (id = ${club.id})}" th:method="get">
+    <button th:type="submit">See bought products</button>
+</form>
+<form th:align="center" action="#" th:action="@{/clubs/{id} (id = ${club.id})}" th:method="get">
+    <button th:type="submit">See all products</button>
+</form>
 <br>
 <hr>
 <br>
@@ -82,5 +94,22 @@
     </tr>
     </tbody>
 </table>
+<br>
+<form th:align="center" action="#" th:action="@{/invitations/username/{clubId} (clubId=${club.id})}" th:method="post">
+    <label th:for="username">Username of person to invite : </label>
+    <input th:type="text" th:name="username" th:placeholder="username">
+    <button>Send invitation</button>
+</form>
+<br>
+<form th:align="center" action="#" th:action="@{/invitations/mail/{clubId} (clubId=${club.id})}" th:method="post">
+    <label th:for="mail">Mail of person to invite : </label>
+    <input th:type="text" th:name="mail" th:placeholder="mail">
+    <button>Send invitation</button>
+</form>
+<br>
+<form th:align="center" action="#" th:action="@{/clubs/leave/{clubId} (clubId = ${club.id})}" th:method="put">
+    <input type="hidden" name="_method" value="put"/>
+    <button th:type="submit">Leave group</button>
+</form>
 </body>
 </html>

@@ -41,4 +41,9 @@ public class ClubServiceFacadeImpl implements ClubServiceFacade {
     public void joinClub(String code, String username) {
         clubService.joinClub(code, username);
     }
+
+    @Override
+    public void leaveClub(long clubId, String username) {
+        clubService.leaveClub(clubId, username);
+    }
 }

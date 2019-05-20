@@ -45,4 +45,14 @@ public class WantedProductServiceFacadeImpl implements WantedProductServiceFacad
     public void markAsBought(long id) {
         wantedProductService.markAsBought(id);
     }
+
+    @Override
+    public List<WantedProductDTO> getWantedProductsByClubIdAndBoughtTrue(long id) {
+        return wantedProductService.getWantedProductsByClubIdAndBoughtTrue(id).stream().map(mapper::convertToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WantedProductDTO> getWantedProductsByClubIdAndBoughtFalse(long id) {
+        return wantedProductService.getWantedProductsByClubIdAndBoughtFalse(id).stream().map(mapper::convertToDTO).collect(Collectors.toList());
+    }
 }

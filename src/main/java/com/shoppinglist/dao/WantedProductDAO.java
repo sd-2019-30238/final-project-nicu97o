@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface WantedProductDAO extends JpaRepository<WantedProduct, Long> {
     List<WantedProduct> findWantedProductsByClubId(long id);
+
+    List<WantedProduct> findWantedProductsByClubIdAndBoughtFalse(long id);
+
+    List<WantedProduct> findWantedProductsByClubIdAndBoughtTrue(long id);
 }

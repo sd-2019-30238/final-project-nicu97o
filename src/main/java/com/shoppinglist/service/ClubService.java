@@ -11,5 +11,7 @@ public interface ClubService {
 
     void joinClub(String code, String username);
 
+    void leaveClub(long clubId, String username);
+
     List<Club> getClubsByUsersUsername(String username);
 }

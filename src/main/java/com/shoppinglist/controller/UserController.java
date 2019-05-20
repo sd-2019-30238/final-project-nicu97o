@@ -7,6 +7,7 @@ import com.shoppinglist.model.database.UserType;
 import com.shoppinglist.model.dto.UserDTO;
 import com.shoppinglist.service.EmailService;
 import com.shoppinglist.service.TokenService;
+import com.shoppinglist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.security.core.Authentication;
@@ -90,5 +91,34 @@ public class UserController {
     public ModelAndView updatePassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, Authentication authentication) {
         userServiceFacade.changePassword(authentication.getName(), oldPassword, newPassword);
         return new ModelAndView("redirect:/users/accountDetails");
+    }
+
+    @GetMapping("/forgotPassword")
+    public ModelAndView getForgotPasswordPage() {
+        return new ModelAndView("ForgotPassword");
+    }
+
+    @PostMapping("/forgotPassword")
+    public ModelAndView sendForgotPasswordMail(@RequestParam("mail") String mail, HttpServletRequest httpServletRequest) throws MessagingException {
+        UserDTO userDTO = userServiceFacade.getUserByMail(mail);
+        Token token = tokenService.createToken(userDTO.getUsername(), TokenType.PASSWORD_RESET);
+        String resetPasswordLink = "http://" + httpServletRequest.getHeader("host") + "/users/changePassword?token=" + token.getTokenValue() + "&username=" + userDTO.getUsername();
+        emailService.sendMail(userDTO.getMail(), "Reset password", resetPasswordLink);
+        return new ModelAndView("redirect:/login");
+    }
+
+    @GetMapping("/changePassword")
+    public ModelAndView getChangePassword(@RequestParam("token") String token, @RequestParam("username") String username) {
+        ModelAndView modelAndView = new ModelAndView("ChangePassword");
+        modelAndView.addObject("token", token);
+        modelAndView.addObject("username", username);
+        return modelAndView;
+    }
+
+    @PutMapping("/changePassword")
+    public ModelAndView changePasswordWithToken(@RequestParam("token") String token, @RequestParam("username") String username, @RequestParam("password") String password) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/login");
+        userServiceFacade.changePasswordBasedOnToken(username, password, token);
+        return modelAndView;
     }
 }

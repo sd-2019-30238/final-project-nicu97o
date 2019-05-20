@@ -56,6 +56,15 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
+    public void leaveClub(long clubId, String username) {
+        Club club = getClubById(clubId);
+        User user = userService.getUserByUsername(username);
+        user.getClubs().remove(club);
+        club.getUsers().remove(user);
+        clubDAO.save(club);
+    }
+
+    @Override
     public List<Club> getClubsByUsersUsername(String username) {
         return clubDAO.findClubsByUsers(userService.getUserByUsername(username));
     }

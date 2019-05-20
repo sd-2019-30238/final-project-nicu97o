@@ -1,5 +1,5 @@
 package com.shoppinglist.model.database;
 
 public enum TokenType {
-    ACTIVATION
+    ACTIVATION, PASSWORD_RESET
 }

@@ -12,4 +12,6 @@ public interface ClubServiceFacade {
     List<ClubDTO> getClubsByUsersUsername(String username);
 
     void joinClub(String code, String username);
+
+    void leaveClub(long clubId, String username);
 }
