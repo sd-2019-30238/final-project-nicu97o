@@ -4,6 +4,7 @@ import com.shoppinglist.dao.UserDAO;
 import com.shoppinglist.exception.IncorrectPasswordException;
 import com.shoppinglist.exception.NoUserFoundException;
 import com.shoppinglist.exception.TokenExpiredException;
+import com.shoppinglist.exception.UserAlreadyAMemberException;
 import com.shoppinglist.model.database.Token;
 import com.shoppinglist.model.database.User;
 import com.shoppinglist.service.ClubService;
@@ -56,6 +57,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
+        if (userDAO.findUserByMail(user.getMail()).isPresent() || userDAO.findUserByUsername(user.getUsername()).isPresent()) {
+            throw new UserAlreadyAMemberException("Username or mail is already used for membership!");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDAO.save(user);
     }
