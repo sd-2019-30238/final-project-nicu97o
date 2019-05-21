@@ -2,6 +2,7 @@ package com.shoppinglist.service.impl;
 
 import com.shoppinglist.dao.InvitationDAO;
 import com.shoppinglist.exception.NoInvitationFoundException;
+import com.shoppinglist.exception.UserAlreadyAMemberException;
 import com.shoppinglist.model.database.Club;
 import com.shoppinglist.model.database.Invitation;
 import com.shoppinglist.model.database.User;
@@ -73,6 +74,9 @@ public class InvitationServiceImpl implements InvitationService {
     private Invitation createInvitation(String senderUsername, long clubId, User receiver) {
         User sender = userService.getUserByUsername(senderUsername);
         Club club = clubService.getClubById(clubId);
+        if (receiver.getClubs().contains(club)) {
+            throw new UserAlreadyAMemberException(receiver.getUsername() + " is already a user of club with id " + clubId + "!");
+        }
         Invitation invitation = new Invitation(null, club.getInviteCode(), false, sender, receiver);
         invitationDAO.save(invitation);
         return invitation;

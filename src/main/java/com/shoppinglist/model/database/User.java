@@ -26,6 +26,7 @@ public class User {
     private String mail;
 
     @Column
+    @EqualsAndHashCode.Exclude
     private String password;
 
     @Column
@@ -62,4 +63,13 @@ public class User {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     private List<Token> tokens = new ArrayList<>();
+
+    public User(Long id, String username, String mail, String password, UserType userType, boolean confirmed) {
+        this.id = id;
+        this.username = username;
+        this.mail = mail;
+        this.password = password;
+        this.userType = userType;
+        this.confirmed = confirmed;
+    }
 }

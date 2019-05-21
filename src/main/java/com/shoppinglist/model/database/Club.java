@@ -38,4 +38,10 @@ public class Club {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @EqualsAndHashCode.Exclude
     private List<User> users = new ArrayList<>();
+
+    public Club(Long id, String name, @Size(max = 100) String inviteCode) {
+        this.id = id;
+        this.name = name;
+        this.inviteCode = inviteCode;
+    }
 }
